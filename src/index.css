@@ -3,3 +3,65 @@
 @tailwind utilities;
 
 
+.btn-x {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: .5rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: 500ms;
+  border-radius: 20px;
+  overflow: hidden;
+  width: auto;
+  max-width: 6rem;
+  width: 3rem;
+  background-color: var(--gray-300);
+}
+
+.btn-x svg{
+  width: 1.4rem;
+}
+
+.btn-x:hover{
+  background-color: #007bff;
+  width: 5.5rem;
+}
+
+.btn-x::after{
+  position: absolute;
+  content: '';
+  transform: translate(100vw);
+  transition: all 500ms;
+  right: 0;
+}
+
+.btn-x:hover::after{
+  transform: translate(-1.4rem);
+  color: var(--gray-50);
+}
+
+.btn-x-hover-edit{
+  content: 'edit';
+}
+
+.btn-x-hover-edit:hover::after{
+  left: 3.5rem;
+  content: 'edit';
+  transform: translate(-1.4rem);
+
+}
+.btn-x-hover-copy-::after{
+  content: 'copy';
+}
+
+.btn-x-hover-copy-done::after{
+  left: 3.5rem;
+  content: 'copied';
+  transform: translate(-1.4rem);
+}
+
+.btn-x-hover-copy-done{
+  width: 5.5rem;
+}
