@@ -42,7 +42,7 @@ export const Editor = ({
 
     return text.replace(/{(\w+)}/g, (match, p1) => {
       if (variables[p1]) {
-        return `<span class="p-1 transition-all text-secondary rounded ${editStatus ? "bg-primary-light" : "bg-primary"}">${p1}</span>`;
+        return `<span class="font-sans p-1 transition-all text-secondary rounded ${editStatus ? "bg-primary-light" : "bg-primary"}">${p1}</span>`;
       }
       return match;
     });
@@ -53,7 +53,7 @@ export const Editor = ({
 
     return text.replace(/{(\w+)}/g, (match, p1) => {
       if (variables[p1]) {
-        return `<span class="p-1 transition-all text-secondary rounded ${editStatus ? "bg-primary-light" : "bg-primary"}">${variables[p1]}</span>`;
+        return `<span class="font-sans p-1 transition-all text-secondary rounded ${editStatus ? "bg-primary-light" : "bg-primary"}">${variables[p1]}</span>`;
       }
       return match;
     });
@@ -69,12 +69,12 @@ export const Editor = ({
             onChange={handleTextChange}
             maxLength={maxChars}
             placeholder="Type here..."
-            className="absolute top-0 resize-none p-2 bg-primary w-full rounded flex-1 caret-neutral-300 text-transparent h-[24dvh] overflow-hidden focus:bg-primary outline-none transition-all"
+            className="font-sans absolute top-0 resize-none p-2 bg-primary w-full rounded flex-1 caret-neutral-300 text-transparent h-[24dvh] overflow-hidden focus:bg-primary outline-none transition-all"
             onScroll={handleScroll}
           />
           <div
             ref={mirroredDivRef}
-            className="absolute top-0 p-2 text-neutral-300 overflow-auto whitespace-pre-wrap"
+            className="font-sans absolute top-0 p-2 text-neutral-300 overflow-auto whitespace-pre-wrap"
             dangerouslySetInnerHTML={{
               __html: renderTextWithVariables(text)
             }}
@@ -82,7 +82,7 @@ export const Editor = ({
         </>
       ) : (
         <p
-          className={`text-justify text-wrap p-2 h-[24dvh] ${text ? "text-neutral-300" : "text-neutral-400"}`}
+          className={`font-sans text-justify text-wrap p-2 h-[24dvh] ${text ? "text-neutral-300" : "text-neutral-400"}`}
           dangerouslySetInnerHTML={{
             __html: text
               ? renderTextWithVariablesSpan(text)

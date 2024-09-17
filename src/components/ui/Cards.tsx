@@ -57,7 +57,7 @@ export function Cards({ id, content, onChangeText, onDelete }: ICardsProps) {
 
     return text.replace(/{(\w+)}/g, (match, p1) => {
       if (variables[p1]) {
-        return `<span class="p-1 transition-all text-secondary rounded bg-primary">${variables[p1]}</span>`;
+        return `<span class="font-sans p-1 transition-all text-secondary rounded bg-primary">${variables[p1]}</span>`;
       }
       return match;
     });
@@ -75,7 +75,7 @@ export function Cards({ id, content, onChangeText, onDelete }: ICardsProps) {
           title="clipboard"
           type="button"
           onClick={handleCopy}
-          className={`btn-x btn-x-hover-copy-${copyStatus} hover:bg-primary text-sm text-neutral-400 font-medium`}
+          className={`font-sans btn-x btn-x-hover-copy-${copyStatus} hover:bg-primary text-sm text-neutral-400 font-medium`}
         >
           <Clipboard />
         </button>
@@ -83,7 +83,7 @@ export function Cards({ id, content, onChangeText, onDelete }: ICardsProps) {
           title="edit"
           type="button"
           onClick={handleEditMode}
-          className="btn-x btn-x-hover-edit hover:bg-primary text-sm text-neutral-400 font-medium"
+          className="font-sans btn-x btn-x-hover-edit hover:bg-primary text-sm text-neutral-400 font-medium"
         >
           <Edit />
         </button>
@@ -96,7 +96,7 @@ export function Cards({ id, content, onChangeText, onDelete }: ICardsProps) {
           variables={variables}
           maxChars={maxChars}
         />
-        <p className="text-right w-full justify-self-end text-sm text-zinc-400">
+        <p className="font-sans text-right w-full justify-self-end text-sm text-zinc-400">
           {!text?.length ? 0 : text.length}/{maxChars}
         </p>
       </div>
