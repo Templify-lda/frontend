@@ -68,3 +68,12 @@
 .btn-x-hover-copy-done{
   width: 5.5rem;
 }
+
+.links svg{
+  stroke: #fafafa;
+  transition: 150ms;
+}
+
+.links:hover svg{
+  stroke: #3B8EDC;
+}
