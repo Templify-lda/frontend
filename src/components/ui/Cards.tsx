@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Clipboard } from "./Icons/Clipboard";
 import { Edit } from "./Icons/Edit";
 import { Editor } from "./Editor";
@@ -17,10 +17,10 @@ export function Cards({ id, content, onChangeText, onDelete }: ICardsProps) {
   const [variables, setVariables] = useState<{ [key: string]: string }>({
     userName: "John Doe",
     passageiro: "Maria Luisa",
-    // Adicione mais variáveis conforme necessário
+    // Add more variables as needed
   });
 
-  const maxChars = 350;
+  const maxChars = 250;
 
   const handleEditMode = () => {
     setEditStatus(!editStatus);
@@ -34,11 +34,9 @@ export function Cards({ id, content, onChangeText, onDelete }: ICardsProps) {
   const handleCopy = () => {
     const textWithVariables = renderTextWithVariablesSpan(text);
 
-    // Criar um elemento temporário para converter HTML para texto puro
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = textWithVariables;
 
-    // Copiar texto simples para o clipboard
     const plainText = tempDiv.textContent || "";
 
     navigator.clipboard
@@ -57,7 +55,7 @@ export function Cards({ id, content, onChangeText, onDelete }: ICardsProps) {
 
     return text.replace(/{(\w+)}/g, (match, p1) => {
       if (variables[p1]) {
-        return `<span class="font-sans p-1 transition-all text-secondary rounded bg-primary">${variables[p1]}</span>`;
+        return `<span class="font-sans p-0.5 px-1 transition-all text-secondary rounded bg-primary">${variables[p1]}</span>`;
       }
       return match;
     });
@@ -69,8 +67,8 @@ export function Cards({ id, content, onChangeText, onDelete }: ICardsProps) {
   }, [copyStatus]);
 
   return (
-    <div className="p-4 bg-primary-light font-sans rounded-lg text-neutral border-none w-[540px] flex flex-col min-h-48 h-auto">
-      <div className="flex items-center justify-end gap-4 mb-2">
+    <div className="p-2 bg-primary-light text-sm font-sans rounded-lg text-neutral border-none min-w-[440px]  w-full flex flex-col h-[200px]"> {/* Fixed height */}
+      <div className="flex items-center justify-end gap-4 p-1">
         <button
           title="clipboard"
           type="button"
@@ -88,7 +86,7 @@ export function Cards({ id, content, onChangeText, onDelete }: ICardsProps) {
           <Edit />
         </button>
       </div>
-      <div className="flex flex-col flex-1 h-full gap-2 justify-between">
+      <div className="flex flex-col flex-1 h-full gap-1 justify-between overflow-y-auto"> {/* Enable scroll if needed */}
         <Editor
           text={text}
           onChangeText={handleTextChange}
@@ -96,7 +94,7 @@ export function Cards({ id, content, onChangeText, onDelete }: ICardsProps) {
           variables={variables}
           maxChars={maxChars}
         />
-        <p className="font-sans text-right w-full justify-self-end text-sm text-zinc-400">
+        <p className="font-sans text-right w-full justify-self-end text-xs text-zinc-400">
           {!text?.length ? 0 : text.length}/{maxChars}
         </p>
       </div>
