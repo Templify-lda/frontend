@@ -7,10 +7,9 @@ interface ICardsProps {
   id: string;
   content: string;
   onChangeText: (id: string, e: string) => void;
-  onDelete: (id: string) => void;
 }
 
-export function Cards({ id, content, onChangeText, onDelete }: ICardsProps) {
+export function Cards({ id, content, onChangeText }: ICardsProps) {
   const [text, setText] = useState(content);
   const [copyStatus, setCopyStatus] = useState<string>("");
   const [editStatus, setEditStatus] = useState<boolean>(false);

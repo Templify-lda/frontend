@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Cards } from "./Cards";
 import { Button } from "./button";
 import { SearchFile } from "./Icons/SearchFile";
@@ -23,14 +23,8 @@ export const Template = () => {
 
   const handleContentChange = (id: number, content: string) => {
     setCardList((prev) =>
-      prev.map((card) =>
-        card.id === id ? { ...card, content } : card
-      )
+      prev.map((card) => (card.id === id ? { ...card, content } : card)),
     );
-  };
-
-  const handleDeleteCard = (id: number) => {
-    setCardList((prev) => prev.filter((card) => card.id !== id));
   };
 
   return (
@@ -47,7 +41,11 @@ export const Template = () => {
           <Button variant={"ghost"} className="text-accent font-semibold">
             Delete
           </Button>
-          <Button variant={"secondary"} onClick={AddCard} className="font-semibold">
+          <Button
+            variant={"secondary"}
+            onClick={AddCard}
+            className="font-semibold"
+          >
             + Add Card
           </Button>
         </div>
@@ -60,13 +58,14 @@ export const Template = () => {
               id={card.id.toString()}
               content={card.content}
               onChangeText={(content) => handleContentChange(card.id, content)}
-              onDelete={() => handleDeleteCard(card.id)}
             />
           ))
         ) : (
           <div className="flex flex-col gap-4 justify-center items-center mt-10">
             <SearchFile />
-            <p className="text-neutral-500 text-xl text-center">There are no cards yet</p>
+            <p className="text-neutral-500 text-xl text-center">
+              There are no cards yet
+            </p>
             <Button variant={"secondary"} onClick={AddCard}>
               + Add Card
             </Button>
