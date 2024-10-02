@@ -1,4 +1,4 @@
-interface IAccountIconProps {
+interface IAvatarIconProps {
   name: string;
   avatarImage: string;
 }
@@ -25,7 +25,7 @@ const stringToColor = (string: string) => {
   return color;
 };
 
-const AccountIcon = ({ name, avatarImage }: IAccountIconProps) => {
+const AvatarIcon = ({ name, avatarImage }: IAvatarIconProps) => {
   const initials = getInitials(name);
   const backgroundColor = stringToColor(name);
 
@@ -63,4 +63,4 @@ const AccountIcon = ({ name, avatarImage }: IAccountIconProps) => {
   );
 };
 
-export default AccountIcon;
+export default AvatarIcon;

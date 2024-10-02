@@ -35,7 +35,7 @@ module.exports = {
     },
   },
   plugins: [
-    function({addUtilities}){
+    ({addUtilities})=>{
       const newUtilities = {
         ".scrollbar-thin":{
           scrollBarWidth : "thin",
