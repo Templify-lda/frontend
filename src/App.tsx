@@ -1,4 +1,3 @@
-import { Cards } from "./components/ui/Cards";
 import { NavBar } from "./components/ui/NavBar";
 import { Template } from "./components/ui/Template";
 
