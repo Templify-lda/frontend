@@ -19,7 +19,7 @@
   border-radius: 20px;
   overflow: hidden;
   width: auto;
-  max-width: 4rem;
+  max-width: 5rem;
   width: 2rem;
   background-color: var(--gray-300);
 }
@@ -30,7 +30,7 @@
 
 .btn-x:hover{
   background-color: #007bff;
-  width: 4rem;
+  width: 4.5rem;
 }
 
 .btn-x::after{
@@ -42,7 +42,7 @@
 }
 
 .btn-x:hover::after{
-  transform: translate(-.6rem);
+  transform: translate(-1rem);
   color: var(--gray-50);
 }
 
@@ -63,11 +63,15 @@
 .btn-x-hover-copy-done::after{
   left: 3.5rem;
   content: 'copied';
-  transform: translate(-1.4rem);
+  transform: translate(-2rem);
+}
+
+.btn-x-hover-copy-done:hover::after{
+  transform: translate(-2rem);
 }
 
 .btn-x-hover-copy-done{
-  width: 4rem;
+  width: 5rem;
 }
 
 .links svg{

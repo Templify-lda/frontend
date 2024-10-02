@@ -36,7 +36,7 @@ export const Template = () => {
     <div className="w-full flex flex-col gap-2 p-4 h-[90dvh]">
       <div className="flex w-full p-1 justify-between items-center">
         <h1
-          className="text-4xl font-bold font-heading text-neutral-300 focus:bg-primary-light outline-none p-4 rounded-lg"
+          className="text-4xl font-bold font-heading text-neutral-400 focus:bg-primary-light hover:text-neutral-200 hover:bg-primary-light focus:text-neutral-50 transition-all outline-none p-4 rounded-lg"
           contentEditable="plaintext-only"
           onBlur={(e) => console.log("File name:", e.currentTarget.textContent)}
         >
