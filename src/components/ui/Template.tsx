@@ -59,7 +59,7 @@ export const Template = () => {
               key={card.id}
               id={card.id.toString()}
               content={card.content}
-              onContentChange={(content) => handleContentChange(card.id, content)}
+              onChangeText={(content) => handleContentChange(card.id, content)}
               onDelete={() => handleDeleteCard(card.id)}
             />
           ))
