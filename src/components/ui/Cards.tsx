@@ -7,17 +7,14 @@ interface ICardsProps {
   id: string;
   content: string;
   onChangeText: (id: string, e: string) => void;
+  variables: { [key: string]: string }
 }
 
-export function Cards({ id, content, onChangeText }: ICardsProps) {
+export function Cards({ id, content, onChangeText, variables }: ICardsProps) {
   const [text, setText] = useState(content);
   const [copyStatus, setCopyStatus] = useState<string>("");
   const [editStatus, setEditStatus] = useState<boolean>(false);
-  const [variables, setVariables] = useState<{ [key: string]: string }>({
-    userName: "John Doe",
-    passageiro: "Maria Luisa",
-    // Add more variables as needed
-  });
+  
 
   const maxChars = 250;
 

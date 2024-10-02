@@ -11,6 +11,11 @@ type CardInfo = {
 export const Template = () => {
   const [counter, setCounter] = useState(0);
   const [cardList, setCardList] = useState<CardInfo[]>([]);
+  const variables = {
+    userName: "John Doe",
+    passageiro: "Maria Luisa",
+    // Add more variables as needed
+  };
 
   const AddCard = useCallback(() => {
     const newCardInfo: CardInfo = {
@@ -58,6 +63,7 @@ export const Template = () => {
               id={card.id.toString()}
               content={card.content}
               onChangeText={(content) => handleContentChange(card.id, content)}
+              variables={variables}
             />
           ))
         ) : (
