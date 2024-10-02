@@ -10,7 +10,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  padding: .5rem;
+  padding-inline: .4rem;
+  padding-block: .4rem;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -18,18 +19,18 @@
   border-radius: 20px;
   overflow: hidden;
   width: auto;
-  max-width: 6rem;
-  width: 3rem;
+  max-width: 4rem;
+  width: 2rem;
   background-color: var(--gray-300);
 }
 
 .btn-x svg{
-  width: 1.4rem;
+  width: 1rem;
 }
 
 .btn-x:hover{
   background-color: #007bff;
-  width: 5.5rem;
+  width: 4rem;
 }
 
 .btn-x::after{
@@ -41,7 +42,7 @@
 }
 
 .btn-x:hover::after{
-  transform: translate(-1.4rem);
+  transform: translate(-.6rem);
   color: var(--gray-50);
 }
 
@@ -52,7 +53,7 @@
 .btn-x-hover-edit:hover::after{
   left: 3.5rem;
   content: 'edit';
-  transform: translate(-1.4rem);
+  transform: translate(-1.8rem);
 
 }
 .btn-x-hover-copy-::after{
@@ -66,7 +67,7 @@
 }
 
 .btn-x-hover-copy-done{
-  width: 5.5rem;
+  width: 4rem;
 }
 
 .links svg{

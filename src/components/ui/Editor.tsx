@@ -13,7 +13,7 @@ export const Editor = ({
   onChangeText,
   editStatus,
   variables,
-  maxChars = 350
+  maxChars = 250,
 }: IEditorProps) => {
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const mirroredDivRef = useRef<HTMLDivElement | null>(null);
@@ -42,7 +42,7 @@ export const Editor = ({
 
     return text.replace(/{(\w+)}/g, (match, p1) => {
       if (variables[p1]) {
-        return `<span class="font-sans p-1 transition-all text-secondary rounded ${editStatus ? "bg-primary-light" : "bg-primary"}">${p1}</span>`;
+        return `<span class="font-sans p-0.5 px-1 transition-all text-secondary rounded ${editStatus ? "bg-primary-light" : "bg-primary"}">${p1}</span>`;
       }
       return match;
     });
@@ -53,14 +53,14 @@ export const Editor = ({
 
     return text.replace(/{(\w+)}/g, (match, p1) => {
       if (variables[p1]) {
-        return `<span class="font-sans p-1 transition-all text-secondary rounded ${editStatus ? "bg-primary-light" : "bg-primary"}">${variables[p1]}</span>`;
+        return `<span class="font-sans p-0.5 px-1 transition-all text-secondary rounded ${editStatus ? "bg-primary-light" : "bg-primary"}">${variables[p1]}</span>`;
       }
       return match;
     });
   };
 
   return (
-    <div className="relative h-48">
+    <div className="relative min-h-[100px] max-h-[100px] w-full">
       {editStatus ? (
         <>
           <textarea
@@ -69,24 +69,22 @@ export const Editor = ({
             onChange={handleTextChange}
             maxLength={maxChars}
             placeholder="Type here..."
-            className="font-sans absolute top-0 resize-none p-2 bg-primary w-full rounded flex-1 caret-neutral-300 text-transparent h-[24dvh] overflow-hidden focus:bg-primary outline-none transition-all"
+            className="font-sans absolute top-0 resize-none p-2 bg-primary w-full rounded flex-1 caret-neutral-300 text-transparent h-[100px] max-h-full break-all overflow-wrap inline-block focus:bg-primary outline-none transition-all"
             onScroll={handleScroll}
           />
           <div
             ref={mirroredDivRef}
-            className="font-sans absolute top-0 p-2 text-neutral-300 overflow-auto whitespace-pre-wrap"
+            className="font-sans absolute top-0 p-2 text-neutral-300 pointer-events-none whitespace-pre-wrap break-words w-full h-[100px] min-w-0 overflow-hidden break-all overflow-wrap inline-block"
             dangerouslySetInnerHTML={{
-              __html: renderTextWithVariables(text)
+              __html: renderTextWithVariables(text),
             }}
           />
         </>
       ) : (
         <p
-          className={`font-sans text-justify text-wrap p-2 h-[24dvh] ${text ? "text-neutral-300" : "text-neutral-400"}`}
+          className={`font-sans min-w-0 text-wrap break-words overflow-hidden break-all overflow-wrap inline-block p-2 h-[100px] flex-1 max-h-full ${text ? "text-neutral-300" : "text-neutral-400"}`}
           dangerouslySetInnerHTML={{
-            __html: text
-              ? renderTextWithVariablesSpan(text)
-              : "Type here..."
+            __html: text ? renderTextWithVariablesSpan(text) : "Type here...",
           }}
         />
       )}
