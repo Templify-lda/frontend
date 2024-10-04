@@ -75,7 +75,7 @@ export const Template = ({ variables }: TemplateProps) => {
           ))
         ) : (
           <div className="flex flex-col gap-4 justify-center items-center mt-10">
-            <SearchFile />
+            <SearchFile/>
             <p className="text-neutral-500 text-xl text-center">
               There are no card yet
             </p>
