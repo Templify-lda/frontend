@@ -1,4 +1,4 @@
-export const Settings = () =>{
+export const SettingsIcon = () =>{
   return(
     <svg
     width={24}

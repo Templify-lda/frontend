@@ -7,6 +7,7 @@ module.exports = {
         primary: {
           DEFAULT: "#25233C", // Fundo Principal (roxo escuro)
           light: "#2F2C48", // Barra superior (um tom mais claro)
+          accent: "#3C3C4F",
           foreground: "#F2F2F2", // Text color on primary backgrounds
         },
         secondary: {
@@ -35,7 +36,7 @@ module.exports = {
     },
   },
   plugins: [
-    function({addUtilities}){
+    ({addUtilities})=>{
       const newUtilities = {
         ".scrollbar-thin":{
           scrollBarWidth : "thin",

@@ -1,32 +1,39 @@
 import { useState, useCallback } from "react";
-import { Cards } from "./Cards";
-import { Button } from "./button";
-import { SearchFile } from "./Icons/SearchFile";
+import { Card } from "../Card/Card";
+import { Button } from "../common/button";
+import { SearchFile } from "../Icons/SearchFile";
+import type ICard from "@/data/models/card";
+import type ITemplate from "@/data/models/template";
+import type IVariable from "@/data/models/variable";
 
-type CardInfo = {
-  id: number;
-  content: string;
-};
+interface TemplateProps extends ITemplate{
+  variables : Map<string, IVariable>
+}
 
-export const Template = () => {
+
+export const Template = ({variables}: TemplateProps) => {
   const [counter, setCounter] = useState(0);
-  const [cardList, setCardList] = useState<CardInfo[]>([]);
-  const variables = {
-    userName: "John Doe",
-    passageiro: "Maria Luisa",
-    // Add more variables as needed
-  };
+  const [cardList, setCardList] = useState<ICard[]>([]);
+  
+  const vars : IVariable[] = []
 
+  variables.forEach((v,k) =>{
+    vars.push(v)
+  })
+  console.log(variables)
+  console.log(vars)
   const AddCard = useCallback(() => {
-    const newCardInfo: CardInfo = {
-      id: counter,
-      content: "", // Initial content can be empty or a default value
+    const newCardInfo: ICard = {
+      id: `${counter}`,
+      content: "",
+      tag: "",
+      parent_id: "", // Initial content can be empty or a default value
     };
     setCounter((prev) => prev + 1);
     setCardList((prev) => [...prev, newCardInfo]);
   }, [counter]);
 
-  const handleContentChange = (id: number, content: string) => {
+  const handleContentChange = (id: string, content: string) => {
     setCardList((prev) =>
       prev.map((card) => (card.id === id ? { ...card, content } : card)),
     );
@@ -58,19 +65,19 @@ export const Template = () => {
       <div className="flex flex-col w-full h-auto gap-4 items-center p-2 overflow-y-scroll scrollbar-thin scrollbar-webkit">
         {cardList.length > 0 ? (
           cardList.map((card) => (
-            <Cards
+            <Card
               key={card.id}
               id={card.id.toString()}
               content={card.content}
               onChangeText={(content) => handleContentChange(card.id, content)}
-              variables={variables}
+              variables={vars}
             />
           ))
         ) : (
           <div className="flex flex-col gap-4 justify-center items-center mt-10">
             <SearchFile />
             <p className="text-neutral-500 text-xl text-center">
-              There are no cards yet
+              There are no card yet
             </p>
             <Button variant={"secondary"} onClick={AddCard}>
               + Add Card

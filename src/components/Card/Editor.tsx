@@ -1,10 +1,11 @@
+import type IVariable from "@/data/models/variable";
 import { useEffect, useRef } from "react";
 
 interface IEditorProps {
   text: string;
   onChangeText: (text: string) => void;
   editStatus: boolean;
-  variables: { [key: string]: string };
+  variables: Array<IVariable>;
   maxChars?: number;
 }
 
@@ -41,8 +42,10 @@ export const Editor = ({
     if (!text) return "";
 
     return text.replace(/{(\w+)}/g, (match, p1) => {
-      if (variables[p1]) {
-        return `<span class="font-sans p-0.5 px-1 transition-all text-secondary rounded ${editStatus ? "bg-primary-light" : "bg-primary"}">${p1}</span>`;
+      const variable = variables.find((variable) => variable.key === p1);
+
+      if (variable) {
+        return `<span class="font-sans p-0.5 px-1 transition-all text-secondary rounded ${editStatus ? "bg-primary-light" : "bg-primary"}">${variable.key}</span>`;
       }
       return match;
     });
@@ -52,8 +55,10 @@ export const Editor = ({
     if (!text) return "";
 
     return text.replace(/{(\w+)}/g, (match, p1) => {
-      if (variables[p1]) {
-        return `<span class="font-sans p-0.5 px-1 transition-all text-secondary rounded ${editStatus ? "bg-primary-light" : "bg-primary"}">${variables[p1]}</span>`;
+      const variable = variables.find((variable) => variable.key === p1);
+      
+      if (variable) {
+        return `<span class="font-sans p-0.5 px-1 transition-all text-secondary rounded ${editStatus ? "bg-primary-light" : "bg-primary"}">${variable.value}</span>`;
       }
       return match;
     });

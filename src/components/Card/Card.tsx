@@ -1,27 +1,27 @@
 import { useState, useEffect } from "react";
-import { Clipboard } from "./Icons/Clipboard";
-import { Edit } from "./Icons/Edit";
+import { Clipboard } from "../Icons/Clipboard";
+import { Edit } from "../Icons/Edit";
 import { Editor } from "./Editor";
+import type IVariable from "@/data/models/variable";
 
-interface ICardsProps {
+interface ICardProps {
   id: string;
   content: string;
   onChangeText: (id: string, e: string) => void;
-  variables: { [key: string]: string }
+  variables: Array<IVariable>;
 }
 
-export function Cards({ id, content, onChangeText, variables }: ICardsProps) {
+export function Card({ id, content, onChangeText, variables }: ICardProps) {
   const [text, setText] = useState(content);
   const [copyStatus, setCopyStatus] = useState<string>("");
   const [editStatus, setEditStatus] = useState<boolean>(false);
-  
 
   const maxChars = 250;
 
   const handleEditMode = () => {
     setEditStatus(!editStatus);
   };
-
+  console.log("CARDS::", variables);
   const handleTextChange = (newText: string) => {
     setText(newText);
     onChangeText(id, newText);
@@ -50,8 +50,10 @@ export function Cards({ id, content, onChangeText, variables }: ICardsProps) {
     if (!text) return "";
 
     return text.replace(/{(\w+)}/g, (match, p1) => {
-      if (variables[p1]) {
-        return `<span class="font-sans p-0.5 px-1 transition-all text-secondary rounded bg-primary">${variables[p1]}</span>`;
+      const variable = variables.find(variable => variable.key === p1);
+
+      if (variable) {
+        return `<span class="font-sans p-0.5 px-1 transition-all text-secondary rounded bg-primary">${variable.value}</span>`;
       }
       return match;
     });
@@ -63,7 +65,9 @@ export function Cards({ id, content, onChangeText, variables }: ICardsProps) {
   }, [copyStatus]);
 
   return (
-    <div className="p-2 bg-primary-light text-sm font-sans rounded-lg text-neutral border-none min-w-[440px]  w-full flex flex-col h-[200px]"> {/* Fixed height */}
+    <div className={`p-2 ${editStatus? "bg-primary border-primary-light border-solid border-2": "bg-primary-light border-none"} text-sm font-sans rounded-lg text-neutral  min-w-[440px]  w-full flex flex-col h-[200px]`}>
+      {" "}
+      {/* Fixed height */}
       <div className="flex items-center justify-end gap-4 p-1">
         <button
           title="clipboard"
@@ -82,7 +86,9 @@ export function Cards({ id, content, onChangeText, variables }: ICardsProps) {
           <Edit />
         </button>
       </div>
-      <div className="flex flex-col flex-1 h-full gap-1 justify-between overflow-y-auto"> {/* Enable scroll if needed */}
+      <div className="flex flex-col flex-1 h-full gap-1 justify-between overflow-y-auto">
+        {" "}
+        {/* Enable scroll if needed */}
         <Editor
           text={text}
           onChangeText={handleTextChange}
