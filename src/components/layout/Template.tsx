@@ -6,22 +6,22 @@ import type ICard from "@/data/models/card";
 import type ITemplate from "@/data/models/template";
 import type IVariable from "@/data/models/variable";
 
-interface TemplateProps extends ITemplate{
-  variables : Map<string, IVariable>
+interface TemplateProps extends ITemplate {
+  variables: Map<string, IVariable>;
 }
 
-
-export const Template = ({variables}: TemplateProps) => {
+export const Template = ({ variables }: TemplateProps) => {
   const [counter, setCounter] = useState(0);
   const [cardList, setCardList] = useState<ICard[]>([]);
-  
-  const vars : IVariable[] = []
 
-  variables.forEach((v,k) =>{
-    vars.push(v)
-  })
-  console.log(variables)
-  console.log(vars)
+  const vars: IVariable[] = [];
+
+  variables.forEach((v, k) => {
+    v.id = k;
+    vars.push(v);
+  });
+  console.log(variables);
+  console.log(vars);
   const AddCard = useCallback(() => {
     const newCardInfo: ICard = {
       id: `${counter}`,
