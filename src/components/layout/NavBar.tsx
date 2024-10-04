@@ -4,7 +4,7 @@ import { HomeIcon } from "../Icons/HomeIcon";
 import { SettingsIcon } from "../Icons/SettingsIcon";
 export const NavBar = () => {
   return (
-    <div className="flex p-3 w-full justify-between items-center rounded-3xl bg-background-light">
+    <div className="flex p-3 w-full justify-between items-center rounded-lg bg-background-light">
       <div className="flex-1 text-neutral-50 text-xl font-semibold font-heading">
         <Link to={"/"}>Templify</Link>
       </div>

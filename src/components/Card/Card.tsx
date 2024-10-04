@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import { Clipboard } from "../Icons/Clipboard";
 import { Edit } from "../Icons/Edit";
 import { Editor } from "./Editor";
+import type IVariable from "@/data/models/variable";
 
 interface ICardProps {
   id: string;
   content: string;
   onChangeText: (id: string, e: string) => void;
-  variables: { [key: string]: string };
+  variables: Array<IVariable>;
 }
 
 export function Card({ id, content, onChangeText, variables }: ICardProps) {
@@ -20,7 +21,7 @@ export function Card({ id, content, onChangeText, variables }: ICardProps) {
   const handleEditMode = () => {
     setEditStatus(!editStatus);
   };
-
+  console.log("CARDS::", variables);
   const handleTextChange = (newText: string) => {
     setText(newText);
     onChangeText(id, newText);
@@ -49,8 +50,10 @@ export function Card({ id, content, onChangeText, variables }: ICardProps) {
     if (!text) return "";
 
     return text.replace(/{(\w+)}/g, (match, p1) => {
-      if (variables[p1]) {
-        return `<span class="font-sans p-0.5 px-1 transition-all text-secondary rounded bg-primary">${variables[p1]}</span>`;
+      const variable = variables.find(variable => variable.key === p1);
+
+      if (variable) {
+        return `<span class="font-sans p-0.5 px-1 transition-all text-secondary rounded bg-primary">${variable.value}</span>`;
       }
       return match;
     });
@@ -62,7 +65,7 @@ export function Card({ id, content, onChangeText, variables }: ICardProps) {
   }, [copyStatus]);
 
   return (
-    <div className="p-2 bg-primary-light text-sm font-sans rounded-lg text-neutral border-none min-w-[440px]  w-full flex flex-col h-[200px]">
+    <div className={`p-2 ${editStatus? "bg-primary border-primary-light border-solid border-2": "bg-primary-light border-none"} text-sm font-sans rounded-lg text-neutral  min-w-[440px]  w-full flex flex-col h-[200px]`}>
       {" "}
       {/* Fixed height */}
       <div className="flex items-center justify-end gap-4 p-1">

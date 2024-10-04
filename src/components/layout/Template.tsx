@@ -3,24 +3,31 @@ import { Card } from "../Card/Card";
 import { Button } from "../common/button";
 import { SearchFile } from "../Icons/SearchFile";
 import type ICard from "@/data/models/card";
+import type ITemplate from "@/data/models/template";
+import type IVariable from "@/data/models/variable";
+
+interface TemplateProps extends ITemplate{
+  variables : Map<string, IVariable>
+}
 
 
-
-export const Template = () => {
+export const Template = ({variables}: TemplateProps) => {
   const [counter, setCounter] = useState(0);
   const [cardList, setCardList] = useState<ICard[]>([]);
-  const variables = {
-    userName: "John Doe",
-    passageiro: "Maria Luisa",
-    // Add more variables as needed
-  };
+  
+  const vars : IVariable[] = []
 
+  variables.forEach((v,k) =>{
+    vars.push(v)
+  })
+  console.log(variables)
+  console.log(vars)
   const AddCard = useCallback(() => {
     const newCardInfo: ICard = {
       id: `${counter}`,
       content: "",
       tag: "",
-      parent_id: "" // Initial content can be empty or a default value
+      parent_id: "", // Initial content can be empty or a default value
     };
     setCounter((prev) => prev + 1);
     setCardList((prev) => [...prev, newCardInfo]);
@@ -63,7 +70,7 @@ export const Template = () => {
               id={card.id.toString()}
               content={card.content}
               onChangeText={(content) => handleContentChange(card.id, content)}
-              variables={variables}
+              variables={vars}
             />
           ))
         ) : (
