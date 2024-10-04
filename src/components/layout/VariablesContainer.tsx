@@ -8,7 +8,6 @@ interface VariablesContainerProps {
   onAddVariable: (newVariable: IVariable) => void;
   onRemoveVariable: (key: string) => void;
   onUpdateVariable: (key: string, updatedVariable: IVariable) => void;
-  onSaveVariables: (variables: IVariable[]) => void; // Optional for saving
 }
 
 export const VariablesContainer = ({
@@ -17,8 +16,10 @@ export const VariablesContainer = ({
   onRemoveVariable,
   onUpdateVariable,
 }: VariablesContainerProps) => {
-  const [variables, setVariables] = useState<IVariable[]>(Array.from(varDb.values()));
-  const [localVariables, setLocalVariables] = useState<IVariable[]>(Array.from(varDb.values()));
+
+  const [localVariables, setLocalVariables] = useState<IVariable[]>(
+    Array.from(varDb.values()),
+  );
 
   // Function to handle adding a new variable
   const addVariable = () => {
@@ -41,13 +42,15 @@ export const VariablesContainer = ({
   // Function to handle variable changes
   const handleVariableChange = (id: string, key: string, value: string) => {
     setLocalVariables((prev) =>
-      prev.map((variable) => (variable.id === id ? { ...variable, key, value } : variable))
+      prev.map((variable) =>
+        variable.id === id ? { ...variable, key, value } : variable,
+      ),
     ); // Update local state without saving to DB
   };
 
   // Function to save the variables
   const saveVariables = () => {
-    localVariables.forEach((variable) => {
+    localVariables.map((variable) => {
       onUpdateVariable(variable.key, variable); // Call the provided function to update the variable in the DB
     });
     console.log("Variables saved:", localVariables); // Optional: Log the saved variables
@@ -68,7 +71,9 @@ export const VariablesContainer = ({
             key={variable.id}
             initialName={variable.key}
             initialValue={variable.value}
-            onChange={(name, value) => handleVariableChange(variable.id, name, value)} // Track local changes
+            onChange={(name, value) =>
+              handleVariableChange(variable.id, name, value)
+            } // Track local changes
             onRemove={() => removeVariable(variable.id)}
           />
         ))}
@@ -78,7 +83,8 @@ export const VariablesContainer = ({
         <Button variant={"link"} className="text-neutral-400">
           Close
         </Button>
-        <Button variant={"secondary"} onClick={saveVariables}> {/* Save changes only on click */}
+        <Button variant={"secondary"} onClick={saveVariables}>
+          {/* Save changes only on click */}
           Save
         </Button>
       </div>
